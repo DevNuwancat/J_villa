@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Orange background -->
+  <rect width="200" height="200" fill="#F04E23"/>
+
+  <!-- White circle -->
+  <circle cx="100" cy="105" r="82" fill="white"/>
+
+  <!-- Left ear (black) -->
+  <polygon points="50,72 60,30 82,72" fill="#1a1a1a"/>
+  <!-- Right ear (black) -->
+  <polygon points="118,72 140,30 150,72" fill="#1a1a1a"/>
+
+  <!-- Cat head -->
+  <ellipse cx="100" cy="88" rx="56" ry="52" fill="#1a1a1a"/>
+
+  <!-- Cat body -->
+  <ellipse cx="100" cy="152" rx="52" ry="36" fill="#1a1a1a"/>
+
+  <!-- Left eye - white part -->
+  <ellipse cx="81" cy="83" rx="13" ry="15" fill="#F5EDD8"/>
+  <!-- Right eye - white part -->
+  <ellipse cx="119" cy="83" rx="13" ry="15" fill="#F5EDD8"/>
+
+  <!-- Left pupil -->
+  <circle cx="83" cy="83" r="5.5" fill="#1a1a1a"/>
+  <!-- Right pupil -->
+  <circle cx="121" cy="83" r="5.5" fill="#1a1a1a"/>
+
+  <!-- Eye shine left -->
+  <circle cx="86" cy="78" r="3" fill="#F5EDD8"/>
+  <!-- Eye shine right -->
+  <circle cx="124" cy="78" r="3" fill="#F5EDD8"/>
+
+  <!-- Heart nose in GREEN -->
+  <path d="M100,101 C99,98.5 95.5,98.5 95.5,101.5 C95.5,104.5 100,108 100,108 C100,108 104.5,104.5 104.5,101.5 C104.5,98.5 101,98.5 100,101 Z" fill="#22C55E"/>
+
+  <!-- Whiskers left (3 lines) -->
+  <line x1="62" y1="97" x2="88" y2="101" stroke="#F5EDD8" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="60" y1="103" x2="88" y2="104" stroke="#F5EDD8" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="62" y1="109" x2="88" y2="107" stroke="#F5EDD8" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Whiskers right (3 lines) -->
+  <line x1="112" y1="101" x2="138" y2="97" stroke="#F5EDD8" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="112" y1="104" x2="140" y2="103" stroke="#F5EDD8" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="112" y1="107" x2="138" y2="109" stroke="#F5EDD8" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Left arm curved around cup -->
+  <path d="M62,138 Q56,158 68,170" stroke="#1a1a1a" stroke-width="14" fill="none" stroke-linecap="round"/>
+  <!-- Right arm curved around cup -->
+  <path d="M138,138 Q144,158 132,170" stroke="#1a1a1a" stroke-width="14" fill="none" stroke-linecap="round"/>
+
+  <!-- Cup body (cream) -->
+  <rect x="70" y="148" width="60" height="38" rx="6" fill="#F5EDD8"/>
+
+  <!-- Cup rim/top -->
+  <rect x="68" y="144" width="64" height="10" rx="5" fill="#F5EDD8"/>
+
+  <!-- Coffee liquid (dark) inside cup -->
+  <ellipse cx="100" cy="149" rx="28" ry="5" fill="#2a1208"/>
+
+  <!-- Cup handle -->
+  <path d="M130,156 Q145,156 145,166 Q145,176 130,176" stroke="#F5EDD8" stroke-width="5" fill="none" stroke-linecap="round"/>
+
+  <!-- </> text on cup in GREEN -->
+  <text x="100" y="176" text-anchor="middle" font-family="monospace, 'Courier New'" font-size="15" fill="#22C55E" font-weight="900">&lt;/&gt;</text>
+
+  <!-- Steam wisps (cream) -->
+  <path d="M88,138 Q85,130 88,122 Q91,114 88,106" stroke="#F5EDD8" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M100,136 Q97,128 100,120 Q103,112 100,104" stroke="#F5EDD8" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+</svg>

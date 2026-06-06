@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>J Villla — Eco Luxury Near Sigiriya</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#C9A84C;--gold-light:#E8C97A;--forest:#1A3C34;--forest-mid:#234D42;--forest-deep:#0F2820;--cream:#FAF6EE;--stone:#D4C9B0;--text-muted:#6B6556;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Jost',sans-serif;background:#0a1a14;color:var(--cream);overflow-x:hidden;}
+
+/* TOP BAR */
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(10,26,20,0.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,0.2);padding:0.55rem 2.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.tb-left{display:flex;align-items:center;gap:2rem;}
+.tb-item{display:flex;align-items:center;gap:0.45rem;font-size:0.7rem;color:var(--stone);font-weight:200;letter-spacing:0.05em;text-decoration:none;}
+.tb-item svg{opacity:0.6;flex-shrink:0;}
+.tb-temp{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--gold-light);font-weight:300;}
+.tb-center{position:absolute;left:50%;transform:translateX(-50%);font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:var(--gold-light);letter-spacing:0.12em;}
+.tb-right{display:flex;align-items:center;gap:1.8rem;}
+.tb-book{background:var(--gold);color:var(--forest-deep);border:none;padding:0.42rem 1.4rem;font-family:'Jost',sans-serif;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.45rem;transition:all 0.3s;}
+.tb-book:hover{background:var(--gold-light);}
+
+/* MAIN NAV */
+.main-nav{position:fixed;top:43px;left:0;right:0;z-index:190;padding:0.85rem 2.5rem;display:flex;align-items:center;justify-content:center;background:rgba(10,26,20,0.55);backdrop-filter:blur(8px);transition:background 0.4s;}
+.main-nav.scrolled{background:rgba(10,26,20,0.97);}
+.nav-links{display:flex;gap:2.8rem;list-style:none;}
+.nav-links a{color:rgba(212,201,176,0.75);text-decoration:none;font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:300;transition:color 0.3s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform 0.3s;}
+.nav-links a:hover{color:var(--gold-light);}
+.nav-links a:hover::after{transform:scaleX(1);}
+
+/* HERO SLIDER */
+.hero{height:100vh;position:relative;overflow:hidden;}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;}
+.slide.active{opacity:1;}
+.slide-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.06);transition:transform 9s ease;}
+.slide.active .slide-bg{transform:scale(1);}
+.slide-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.12) 0%,rgba(0,0,0,0.08) 35%,rgba(0,0,0,0.55) 75%,rgba(10,26,20,0.9) 100%);}
+.hero-content{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:8rem;text-align:center;}
+.hero-eyebrow{font-size:0.68rem;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold-light);font-weight:300;margin-bottom:1.2rem;opacity:0;animation:fup 1s 0.3s forwards;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,7vw,6.5rem);font-weight:300;line-height:1.05;color:#fff;letter-spacing:-0.01em;opacity:0;animation:fup 1s 0.5s forwards;}
+.hero-title em{font-style:italic;color:var(--gold-light);}
+.hero-sub{font-size:0.8rem;color:var(--stone);letter-spacing:0.18em;font-weight:200;margin-top:1rem;text-transform:uppercase;opacity:0;animation:fup 1s 0.7s forwards;}
+.hero-cta{margin-top:2.5rem;display:flex;gap:1rem;justify-content:center;opacity:0;animation:fup 1s 0.9s forwards;}
+
+/* Arrow & dots */
+.slider-arrows{position:absolute;top:50%;left:0;right:0;z-index:20;display:flex;justify-content:space-between;padding:0 2rem;transform:translateY(-50%);pointer-events:none;}
+.arr{width:48px;height:48px;border:1px solid rgba(201,168,76,0.4);background:rgba(10,26,20,0.35);color:var(--gold-light);cursor:pointer;display:flex;align-items:center;justify-content:center;pointer-events:all;transition:all 0.3s;backdrop-filter:blur(4px);}
+.arr:hover{background:rgba(201,168,76,0.2);border-color:var(--gold);}
+.slider-dots{position:absolute;bottom:3.5rem;left:50%;transform:translateX(-50%);z-index:20;display:flex;gap:0.6rem;}
+.dot{width:26px;height:2px;background:rgba(255,255,255,0.25);cursor:pointer;transition:all 0.3s;}
+.dot.active{background:var(--gold);width:44px;}
+
+/* BUTTONS */
+.btn-primary{background:var(--gold);color:var(--forest-deep);border:none;padding:0.9rem 2.4rem;font-family:'Jost',sans-serif;font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:500;cursor:pointer;text-decoration:none;display:inline-block;transition:all 0.3s;}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:var(--cream);border:1px solid rgba(250,246,238,0.35);padding:0.9rem 2.4rem;font-family:'Jost',sans-serif;font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:200;cursor:pointer;text-decoration:none;display:inline-block;transition:all 0.3s;}
+.btn-ghost:hover{border-color:var(--gold-light);color:var(--gold-light);}
+
+/* INFO STRIP */
+.info-strip{background:var(--forest-deep);padding:1.6rem 3rem;display:flex;align-items:center;justify-content:center;gap:2.8rem;flex-wrap:wrap;border-bottom:1px solid rgba(201,168,76,0.12);}
+.strip-item{display:flex;align-items:center;gap:0.7rem;color:var(--stone);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:200;}
+.sdot{width:4px;height:4px;background:var(--gold);border-radius:50%;flex-shrink:0;}
+
+/* SECTION COMMONS */
+.section-label{font-size:0.63rem;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold);font-weight:400;display:block;margin-bottom:1.2rem;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,3.5vw,3.2rem);font-weight:300;line-height:1.15;color:var(--cream);}
+.section-title em{font-style:italic;color:var(--gold-light);}
+
+/* ABOUT */
+.about-section{background:var(--forest-deep);padding:7rem 3rem;}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;max-width:1200px;margin:0 auto;}
+.about-text p{font-size:0.9rem;line-height:1.9;color:rgba(212,201,176,0.65);font-weight:200;margin-top:1.5rem;}
+.about-img-wrap{position:relative;}
+.about-img-wrap img{width:100%;height:500px;object-fit:cover;display:block;}
+.about-badge{position:absolute;bottom:-1.5rem;left:-1.5rem;background:var(--forest-mid);border:1px solid rgba(201,168,76,0.3);padding:1.8rem 2rem;}
+.badge-num{font-family:'Cormorant Garamond',serif;font-size:2.8rem;color:var(--gold-light);font-weight:300;line-height:1;display:block;}
+.badge-txt{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--stone);font-weight:200;display:block;margin-top:0.3rem;}
+
+/* ROOMS */
+.rooms-section{background:#0a1a14;padding:7rem 3rem;}
+.section-header{text-align:center;margin-bottom:4rem;}
+.rooms-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;max-width:1200px;margin:0 auto;}
+.room-card{position:relative;overflow:hidden;cursor:pointer;}
+.room-card img{width:100%;height:520px;object-fit:cover;display:block;transition:transform 0.8s ease;filter:brightness(0.68);}
+.room-card:hover img{transform:scale(1.06);filter:brightness(0.48);}
+.room-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,26,20,0.92) 0%,transparent 60%);}
+.room-info{position:absolute;bottom:0;left:0;right:0;padding:2.5rem;transition:transform 0.5s;}
+.room-card:hover .room-info{transform:translateY(-65px);}
+.room-tag{font-size:0.63rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold-light);font-weight:300;display:block;margin-bottom:0.5rem;}
+.room-name{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--cream);display:block;}
+.room-details{position:absolute;bottom:2.5rem;left:2.5rem;right:2.5rem;opacity:0;transition:opacity 0.4s 0.1s;}
+.room-card:hover .room-details{opacity:1;}
+.room-details ul{list-style:none;display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.5rem;}
+.room-details ul li{font-size:0.78rem;color:var(--stone);font-weight:200;letter-spacing:0.05em;display:flex;align-items:center;gap:0.7rem;}
+.room-details ul li::before{content:'';width:18px;height:1px;background:var(--gold);flex-shrink:0;}
+.room-price{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold-light);font-weight:300;}
+
+/* EXPERIENCE — fullscreen slides like Jannata */
+.exp-section{background:#0a1a14;}
+.exp-slide{height:88vh;position:relative;overflow:hidden;}
+.exp-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 0.6s ease;}
+.exp-slide:hover .exp-bg{transform:scale(1.03);}
+.exp-overlay-l{position:absolute;inset:0;background:linear-gradient(to right,rgba(10,26,20,0.82) 0%,rgba(10,26,20,0.2) 55%,transparent 100%);}
+.exp-overlay-r{position:absolute;inset:0;background:linear-gradient(to left,rgba(10,26,20,0.82) 0%,rgba(10,26,20,0.2) 55%,transparent 100%);}
+.exp-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:5rem;}
+.exp-content.right{align-items:flex-end;text-align:right;}
+.exp-num{font-family:'Cormorant Garamond',serif;font-size:5rem;color:rgba(201,168,76,0.12);font-weight:300;line-height:1;margin-bottom:-0.8rem;}
+.exp-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:300;color:var(--cream);margin-bottom:1rem;}
+.exp-desc{font-size:0.88rem;color:rgba(212,201,176,0.68);font-weight:200;line-height:1.85;max-width:380px;}
+.exp-read{margin-top:2rem;display:inline-block;padding:0.75rem 2rem;border:1px solid rgba(201,168,76,0.35);color:var(--gold-light);font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:300;text-decoration:none;transition:all 0.3s;}
+.exp-read:hover{background:rgba(201,168,76,0.12);border-color:var(--gold);}
+
+/* LOCATION */
+.location-section{display:grid;grid-template-columns:1fr 1fr;background:var(--forest-deep);}
+.location-text{padding:6rem 4rem;display:flex;flex-direction:column;justify-content:center;}
+.location-text p{font-size:0.9rem;line-height:1.9;color:rgba(212,201,176,0.65);font-weight:200;margin-top:1.5rem;max-width:380px;}
+.perks{margin-top:2.5rem;display:flex;flex-direction:column;gap:1.2rem;}
+.perk{display:flex;align-items:flex-start;gap:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid rgba(201,168,76,0.1);}
+.perk:last-child{border-bottom:none;}
+.perk-dist{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold);font-weight:300;min-width:3.5rem;}
+.perk-name{font-size:0.8rem;color:var(--stone);font-weight:200;line-height:1.5;padding-top:0.15rem;}
+.location-img{min-height:600px;background:url('https://images.unsplash.com/photo-1589308078059-be1415eab4c3?w=900&auto=format&fit=crop&q=80') center/cover no-repeat;}
+
+/* BOOKING */
+.booking-section{background:var(--forest);padding:7rem 3rem;text-align:center;border-top:1px solid rgba(201,168,76,0.15);}
+.booking-section .section-title{margin-bottom:1rem;}
+.booking-section>p{color:rgba(212,201,176,0.6);font-size:0.88rem;font-weight:200;line-height:1.85;max-width:440px;margin:0 auto 2.5rem;}
+.booking-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem;}
+.wa-btn{background:var(--gold);color:var(--forest-deep);border:none;padding:1rem 2.5rem;font-family:'Jost',sans-serif;font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.6rem;transition:all 0.3s;}
+.wa-btn:hover{background:var(--gold-light);transform:translateY(-2px);}
+.em-btn{background:transparent;color:var(--cream);border:1px solid rgba(201,168,76,0.35);padding:1rem 2.5rem;font-family:'Jost',sans-serif;font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:200;cursor:pointer;text-decoration:none;display:inline-block;transition:all 0.3s;}
+.em-btn:hover{border-color:var(--gold-light);color:var(--gold-light);}
+.booking-note{font-size:0.68rem;color:rgba(212,201,176,0.3);letter-spacing:0.1em;font-weight:200;}
+
+/* GOLD DIVIDER */
+.g-divider{display:flex;align-items:center;gap:1rem;max-width:260px;margin:0 auto;padding:3rem 0;}
+.g-divider::before,.g-divider::after{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,var(--gold));}
+.g-divider::after{background:linear-gradient(to left,transparent,var(--gold));}
+.g-dia{width:5px;height:5px;background:var(--gold);transform:rotate(45deg);}
+
+/* FOOTER */
+footer{background:var(--forest-deep);padding:3.5rem 3rem 2rem;border-top:1px solid rgba(201,168,76,0.1);}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:2rem;}
+.footer-brand{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;color:var(--gold-light);letter-spacing:0.1em;}
+.footer-tagline{font-size:0.63rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--stone);font-weight:200;margin-top:0.6rem;opacity:0.5;}
+.footer-cols{display:flex;gap:4rem;flex-wrap:wrap;}
+.footer-col h4{font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);font-weight:400;margin-bottom:1rem;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.55rem;}
+.footer-col ul li a{font-size:0.77rem;color:var(--stone);text-decoration:none;font-weight:200;opacity:0.6;transition:opacity 0.3s;}
+.footer-col ul li a:hover{opacity:1;color:var(--gold-light);}
+.footer-bottom{text-align:center;padding-top:2.5rem;margin-top:2rem;border-top:1px solid rgba(255,255,255,0.04);font-size:0.63rem;color:var(--stone);opacity:0.3;letter-spacing:0.1em;font-weight:200;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s,transform 0.8s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ANIMATIONS */
+@keyframes fup{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .tb-left{display:none;} .main-nav{display:none;}
+  .about-inner,.rooms-grid,.location-section{grid-template-columns:1fr;}
+  .about-section,.rooms-section,.booking-section{padding:4rem 1.5rem;}
+  .location-text{padding:3.5rem 2rem;} .location-img{min-height:300px;}
+  .exp-content{padding:2.5rem;} .exp-slide{height:60vh;}
+  .info-strip{gap:1.2rem;padding:1.5rem 1rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP INFO BAR -->
+<div class="top-bar">
+  <div class="tb-left">
+    <div class="tb-item">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      Sigiriya Road, Dambulla, Sri Lanka
+    </div>
+    <div class="tb-item">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <span class="tb-temp" id="tempEl">32 °C</span>
+      <span style="opacity:0.6;">· Tropical</span>
+    </div>
+  </div>
+  <div class="tb-center">J Villla</div>
+  <div class="tb-right">
+    <a href="tel:+94XXXXXXXXX" class="tb-item" style="color:var(--stone);">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+      +94 XXX XXX XXX
+    </a>
+    <a href="#book" class="tb-book">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Book Now
+    </a>
+  </div>
+</div>
+
+<!-- MAIN NAV -->
+<nav class="main-nav" id="mainNav">
+  <ul class="nav-links">
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#rooms">Villas</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#location">Location</a></li>
+    <li><a href="#book">Reserve</a></li>
+  </ul>
+</nav>
+
+<!-- HERO SLIDER -->
+<section class="hero" id="home">
+  <div class="slide active" id="s0"><div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1800&auto=format&fit=crop&q=80')"></div><div class="slide-overlay"></div></div>
+  <div class="slide" id="s1"><div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1800&auto=format&fit=crop&q=80')"></div><div class="slide-overlay"></div></div>
+  <div class="slide" id="s2"><div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=1800&auto=format&fit=crop&q=80')"></div><div class="slide-overlay"></div></div>
+  <div class="slide" id="s3"><div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&auto=format&fit=crop&q=80')"></div><div class="slide-overlay"></div></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Eco Luxury · Sigiriya · Sri Lanka</p>
+    <h1 class="hero-title">Where the Jungle<br>Meets <em>Luxury</em></h1>
+    <p class="hero-sub">Two Private Villas · Infinity Pool · Stone &amp; Wood</p>
+    <div class="hero-cta">
+      <a href="#book" class="btn-primary">Reserve Your Villa</a>
+      <a href="#rooms" class="btn-ghost">Discover Rooms</a>
+    </div>
+  </div>
+
+  <div class="slider-arrows">
+    <button class="arr" onclick="chg(-1)" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button class="arr" onclick="chg(1)" aria-label="Next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+  </div>
+
+  <div class="slider-dots" id="dots">
+    <div class="dot active" onclick="go(0)"></div>
+    <div class="dot" onclick="go(1)"></div>
+    <div class="dot" onclick="go(2)"></div>
+    <div class="dot" onclick="go(3)"></div>
+  </div>
+</section>
+
+<!-- INFO STRIP -->
+<div class="info-strip">
+  <div class="strip-item"><div class="sdot"></div>2 Exclusive Villas</div>
+  <div class="strip-item"><div class="sdot"></div>Infinity Pool</div>
+  <div class="strip-item"><div class="sdot"></div>Eco Certified</div>
+  <div class="strip-item"><div class="sdot"></div>Stone &amp; Wood Interiors</div>
+  <div class="strip-item"><div class="sdot"></div>Total Privacy</div>
+  <div class="strip-item"><div class="sdot"></div>Near Sigiriya Rock</div>
+</div>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-inner">
+    <div class="about-text reveal">
+      <span class="section-label">The Villa</span>
+      <h2 class="section-title">A Hidden Sanctuary<br>in the <em>Ancient Forest</em></h2>
+      <p>Nestled among centuries-old jungle near the iconic Sigiriya rock fortress, J Villla offers two exclusive luxury villas crafted from natural stone and reclaimed wood — built in harmony with the land, not against it.</p>
+      <p>Designed for those who seek total privacy without sacrifice. You will not hear your neighbours. You will hear the birds, the wind through the trees, and nothing more.</p>
+    </div>
+    <div class="about-img-wrap reveal">
+      <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&auto=format&fit=crop&q=80" alt="J Villla aerial view">
+      <div class="about-badge">
+        <span class="badge-num">2</span>
+        <span class="badge-txt">Luxury Villas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROOMS -->
+<section class="rooms-section" id="rooms">
+  <div class="section-header reveal">
+    <span class="section-label">Accommodation</span>
+    <h2 class="section-title">Two Sanctuaries,<br><em>One Philosophy</em></h2>
+  </div>
+  <div class="rooms-grid">
+    <div class="room-card reveal">
+      <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&auto=format&fit=crop&q=80" alt="The Stone Suite">
+      <div class="room-overlay"></div>
+      <div class="room-info">
+        <span class="room-tag">Villa One</span>
+        <span class="room-name">The Stone Suite</span>
+      </div>
+      <div class="room-details">
+        <ul>
+          <li>King bed with forest canopy view</li>
+          <li>Open-air stone bathroom</li>
+          <li>Private jungle terrace</li>
+          <li>Handcrafted teak furniture</li>
+          <li>Rain shower &amp; soaking tub</li>
+          <li>Direct infinity pool access</li>
+        </ul>
+        <p class="room-price">From $280 / night</p>
+      </div>
+    </div>
+    <div class="room-card reveal">
+      <img src="https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=900&auto=format&fit=crop&q=80" alt="The Wood Haven">
+      <div class="room-overlay"></div>
+      <div class="room-info">
+        <span class="room-tag">Villa Two</span>
+        <span class="room-name">The Wood Haven</span>
+      </div>
+      <div class="room-details">
+        <ul>
+          <li>King bed with panoramic view</li>
+          <li>Full teak-panelled interior</li>
+          <li>Private plunge pool</li>
+          <li>Handwoven textile accents</li>
+          <li>Outdoor shower sanctuary</li>
+          <li>Dedicated butler service</li>
+        </ul>
+        <p class="room-price">From $320 / night</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE — Jannata style fullscreen -->
+<section class="exp-section" id="experience">
+  <div class="exp-slide">
+    <div class="exp-bg" style="background-image:url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1800&auto=format&fit=crop&q=80')"></div>
+    <div class="exp-overlay-l"></div>
+    <div class="exp-content reveal">
+      <p class="exp-num">01</p>
+      <h3 class="exp-title">Infinity Pool</h3>
+      <p class="exp-desc">Float above the forest canopy in our signature infinity pool. Designed to dissolve into the jungle horizon — a meditation as much as a swim.</p>
+      <a href="#book" class="exp-read">Reserve Now</a>
+    </div>
+  </div>
+  <div class="exp-slide">
+    <div class="exp-bg" style="background-image:url('https://images.unsplash.com/photo-1589308078059-be1415eab4c3?w=1800&auto=format&fit=crop&q=80')"></div>
+    <div class="exp-overlay-r"></div>
+    <div class="exp-content right reveal">
+      <p class="exp-num">02</p>
+      <h3 class="exp-title">Sigiriya Rock</h3>
+      <p class="exp-desc">UNESCO World Heritage wonder just 3km away. An ancient citadel rising 200 metres from the jungle floor — one of Asia's most breathtaking sights.</p>
+      <a href="#location" class="exp-read">Explore</a>
+    </div>
+  </div>
+  <div class="exp-slide">
+    <div class="exp-bg" style="background-image:url('https://images.unsplash.com/photo-1585543805890-6051f7829f98?w=1800&auto=format&fit=crop&q=80')"></div>
+    <div class="exp-overlay-l"></div>
+    <div class="exp-content reveal">
+      <p class="exp-num">03</p>
+      <h3 class="exp-title">Jungle Dining</h3>
+      <p class="exp-desc">Breakfast served open-air each morning. Fresh tropical fruits, local spices, and the sound of the ancient forest as your soundtrack.</p>
+      <a href="#book" class="exp-read">Book Your Stay</a>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section style="padding:0;" id="location">
+  <div class="location-section">
+    <div class="location-text reveal">
+      <span class="section-label">Getting Here</span>
+      <h2 class="section-title">Near Sigiriya,<br><em>Far from Ordinary</em></h2>
+      <p>J Villla sits minutes from one of the world's most extraordinary ancient sites — the perfect base for exploring Sri Lanka's Cultural Triangle.</p>
+      <div class="perks">
+        <div class="perk"><span class="perk-dist">3 km</span><span class="perk-name">Sigiriya Rock Fortress (UNESCO World Heritage)</span></div>
+        <div class="perk"><span class="perk-dist">20 min</span><span class="perk-name">Dambulla Cave Temple</span></div>
+        <div class="perk"><span class="perk-dist">45 min</span><span class="perk-name">Polonnaruwa Ancient City</span></div>
+        <div class="perk"><span class="perk-dist">4 hrs</span><span class="perk-name">Bandaranaike International Airport, Colombo</span></div>
+      </div>
+    </div>
+    <div class="location-img"></div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking-section" id="book">
+  <div class="g-divider" style="margin-bottom:3rem;"><div class="g-dia"></div></div>
+  <span class="section-label">Reservations</span>
+  <h2 class="section-title">Reserve Your Villa</h2>
+  <p>We keep it personal. Message us directly — no bots, no forms. Just us, ready to craft your perfect stay at J Villla.</p>
+  <div class="booking-btns">
+    <a href="https://wa.me/94XXXXXXXXX?text=Hello%20J%20Villla%2C%20I'd%20like%20to%20enquire%20about%20a%20stay." class="wa-btn" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp Us
+    </a>
+    <a href="mailto:hello@jvillla.com?subject=Reservation%20Enquiry" class="em-btn">Email Us</a>
+  </div>
+  <p class="booking-note">Typically respond within 2 hours &nbsp;·&nbsp; Available 7am – 9pm Sri Lanka Time</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">J Villla</div>
+      <p class="footer-tagline">Eco Luxury · Sigiriya · Sri Lanka</p>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Stay</h4>
+        <ul><li><a href="#rooms">The Stone Suite</a></li><li><a href="#rooms">The Wood Haven</a></li><li><a href="#experience">Infinity Pool</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul><li><a href="#location">Getting Here</a></li><li><a href="#location">Sigiriya Rock</a></li><li><a href="#experience">Experiences</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul><li><a href="https://wa.me/94XXXXXXXXX" target="_blank">WhatsApp</a></li><li><a href="mailto:hello@jvillla.com">Email</a></li><li><a href="#book">Reserve Now</a></li></ul>
+      </div>
+    </div>
+  </div>
+  <p class="footer-bottom">© 2025 J Villla · All rights reserved · Designed with care for the land</p>
+</footer>
+
+<script>
+// SLIDER
+let cur=0,total=4,timer;
+function go(n){
+  document.getElementById('s'+cur).classList.remove('active');
+  document.querySelectorAll('.dot')[cur].classList.remove('active');
+  cur=(n+total)%total;
+  document.getElementById('s'+cur).classList.add('active');
+  document.querySelectorAll('.dot')[cur].classList.add('active');
+  clearInterval(timer); timer=setInterval(()=>chg(1),6000);
+}
+function chg(d){go(cur+d);}
+timer=setInterval(()=>chg(1),6000);
+
+// NAV SCROLL
+window.addEventListener('scroll',()=>{
+  document.getElementById('mainNav').classList.toggle('scrolled',scrollY>80);
+});
+
+// REVEAL
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// LIVE WEATHER (Open-Meteo, free, no key needed — Sigiriya coords)
+fetch('https://api.open-meteo.com/v1/forecast?latitude=7.9573&longitude=80.7600&current_weather=true')
+  .then(r=>r.json()).then(d=>{
+    if(d.current_weather) document.getElementById('tempEl').textContent=Math.round(d.current_weather.temperature)+' °C';
+  }).catch(()=>{});
+</script>
+</body>
+</html>

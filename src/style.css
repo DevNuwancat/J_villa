@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────────
+   BRAND THEME — custom colors and fonts for J Villla
+   These become Tailwind utility classes automatically:
+     text-gold, bg-jungle, font-display, etc.
+───────────────────────────────────────────────────────────────── */
+@theme {
+  --color-gold:        #C9A84C;
+  --color-gold-light:  #E8C97A;
+  --color-forest:      #1A3C34;
+  --color-forest-mid:  #234D42;
+  --color-forest-deep: #0F2820;
+  --color-cream:       #FAF6EE;
+  --color-stone:       #D4C9B0;
+  --color-jungle:      #0a1a14;
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body:    'Jost', sans-serif;
+}
+
+/* Smooth anchor-link scrolling */
+html { scroll-behavior: smooth; }
