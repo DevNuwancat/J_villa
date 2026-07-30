@@ -1,35 +1,52 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import AppNav from '../components/AppNav.vue'
+import AppFooter from '../components/AppFooter.vue'
+import LocationMap from '../components/LocationMap.vue'
+import { useLkrRate, usdToLkr } from '../composables/useLkrRate'
 
 // Hero media imports — images and video
-import hero1 from '../assets/hero/hero1.jpg'
-import heroVideo from '../assets/hero/video.mp4'
-import the_villa from '../assets/the_villa.jpg'
+import hero1 from '../assets/hero/hero1.png'
+import hero2 from '../assets/hero/hero2.png'
+import hero3 from '../assets/hero/hero3.png'
 import elephant from '../assets/elephant.jpg'
 
-import inifinity_pool from '../assets/inifnity_pool.jpg'
-import food from '../assets/food.jpg'
+import inifinity_pool from '../assets/hero/Pool.png'
+import food from '../assets/hero/food2.png'
 import sigiriya from '../assets/sigiriya.jpg'
-import room1 from '../assets/room1.jpg'
+import room1 from '../assets/J_vill_room.png'
+
+import near_spa from '../assets/near/spa.png'
+import near_temple from '../assets/near/temple.png'
+import near_rock from '../assets/near/pindurangala.png'
 
 
-import _g1 from '../assets/rooms/1.jpg'
-import _g2 from '../assets/rooms/2.jpg'
-import _g3 from '../assets/rooms/3.jpg'
-import _g4 from '../assets/rooms/4.jpg'
-import _g5 from '../assets/rooms/5.jpg'
-import _g6 from '../assets/rooms/6.jpg'
+import _ig1 from '../assets/insta_gallery/1.png'
+import _ig2 from '../assets/insta_gallery/2.png'
+import _ig3 from '../assets/insta_gallery/3.png'
+import _ig4 from '../assets/insta_gallery/4.png'
+import _ig7 from '../assets/insta_gallery/7.png'
+import _ig8 from '../assets/insta_gallery/8.png'
+import _ig13 from '../assets/insta_gallery/13.png'
+import _ig18 from '../assets/insta_gallery/18.png'
+import _ig20 from '../assets/insta_gallery/20.png'
+import _igPool from '../assets/insta_gallery/Pool.png'
+import _igFood from '../assets/insta_gallery/food.png'
+import _igHero2 from '../assets/insta_gallery/hero2.png'
 
 const galleryImages = [
-  { src: _g6,          label: 'Infinity Pool'       },
-  { src: _g1,          label: 'The Stone Suite'     },
-  { src: _g5,          label: 'Jungle Terrace'      },
-  { src: _g2,          label: 'Stone Bathroom'      },
-  { src: the_villa,    label: 'The Villa'            },
-  { src: _g3,          label: 'Living Pavilion'     },
-  { src: inifinity_pool, label: 'Forest Canopy Pool' },
-  { src: _g4,          label: 'Open-Air Dining'     },
+  { src: _ig1,     label: 'The Villa'          },
+  { src: _ig2,     label: 'Bedroom Retreat'    },
+  { src: _ig3,     label: 'Jungle Terrace'     },
+  { src: _ig4,     label: 'Stone Bathroom'     },
+  { src: _ig7,     label: 'Villa Exterior'     },
+  { src: _ig8,     label: 'Living Pavilion'    },
+  { src: _ig13,    label: 'Open-Air Dining'    },
+  { src: _ig18,    label: 'Kitchen & Dining'   },
+  { src: _ig20,    label: 'Infinity Pool'      },
+  { src: _igPool,  label: 'Forest Canopy Pool' },
+  { src: _igFood,  label: 'Jungle Dining'      },
+  { src: _igHero2, label: 'Sunset Views'       },
 ]
 
 const lightboxIndex = ref(-1)
@@ -48,8 +65,9 @@ function lightboxNext() {
    HERO SLIDER DATA — four background images that rotate every 6s
 ───────────────────────────────────────────────────────────────── */
 const heroSlides = [
-  { type: 'video', src: heroVideo },
   { type: 'image', src: hero1    },
+  { type: 'image', src: hero2    },
+  { type: 'image', src: hero3    },
 ]
 
 /* ─────────────────────────────────────────────────────────────────
@@ -59,32 +77,17 @@ const rooms = [
   {
     id:    'stone-suite',
     image: room1,
-    tag:      'Villa One',
-    name:     'The Stone Suite',
+    tag:      'Private Pool Chalet',
+    name:     'J Villa Sigiriya',
     features: [
-      'King bed with forest canopy view',
-      'Open-air stone bathroom',
-      'Private jungle terrace',
-      'Handcrafted teak furniture',
-      'Rain shower & soaking tub',
-      'Direct infinity pool access',
+      'Private outdoor swimming pool',
+      'Free WiFi throughout',
+      'Balcony with garden, pool or mountain view',
+      'Air-conditioning & private entrance',
+      'Continental & Asian breakfast',
+      'Free private parking on-site',
     ],
-    price: 'From $280 / night',
-  },
-  {
-    id:    'wood-haven',
-    image: room1,
-    tag:      'Villa Two',
-    name:     'The Wood Haven',
-    features: [
-      'King bed with panoramic view',
-      'Full teak-panelled interior',
-      'Private plunge pool',
-      'Handwoven textile accents',
-      'Outdoor shower sanctuary',
-      'Dedicated butler service',
-    ],
-    price: 'From $320 / night',
+    price: 'From $100 / night',
   },
 ]
 
@@ -114,8 +117,8 @@ const experiences = [
   {
     image:    food,
     number:   '03',
-    title:    'Jungle Dining',
-    desc:     'Breakfast served open-air each morning. Fresh tropical fruits, local spices, and the sound of the ancient forest as your soundtrack.',
+    title:    'Explore Your Taste',
+    desc:     'Breakfast served open-air each morning amid the quiet of the Sigiriya forest. Fresh tropical fruits, local spices, and nothing but stillness as your soundtrack.',
     link:     '#book',
     linkText: 'Book Your Stay',
     align:    'left',
@@ -133,34 +136,42 @@ const locationPerks = [
 ]
 
 /* ─────────────────────────────────────────────────────────────────
-   FOOTER COLUMNS DATA
+   NEARBY EXPERIENCES — auto-scrolling carousel of things to do
 ───────────────────────────────────────────────────────────────── */
-const footerCols = [
+const nearbyExperiences = [
   {
-    title: 'Stay',
-    links: [
-      { href: '#rooms',      label: 'The Stone Suite' },
-      { href: '#rooms',      label: 'The Wood Haven'  },
-      { href: '#experience', label: 'Infinity Pool'   },
-    ],
+    image: near_spa,
+    title: 'Ancient Ayurvedic Spa',
+    distance: '5 min away',
+    desc: 'A traditional Ayurvedic spa just minutes from the villa — herbal oils, ancient remedies, total stillness.',
   },
   {
-    title: 'Explore',
-    links: [
-      { href: '#location',   label: 'Getting Here'  },
-      { href: '#location',   label: 'Sigiriya Rock' },
-      { href: '#experience', label: 'Experiences'   },
-    ],
+    image: elephant,
+    title: 'Jungle Safari',
+    distance: '30 min away',
+    desc: 'Track elephants and native wildlife through the dry-zone jungle on a guided safari.',
   },
   {
-    title: 'Contact',
-    links: [
-      { href: 'https://wa.me/94XXXXXXXXX', label: 'WhatsApp'    },
-      { href: 'mailto:hello@jvillla.com',  label: 'Email'       },
-      { href: '#book',                     label: 'Reserve Now' },
-    ],
+    image: near_rock,
+    title: 'Pidurangala Rock',
+    distance: 'Minutes away',
+    desc: 'Climb the rock face at dawn for the finest sunrise view of Sigiriya in Sri Lanka.',
+  },
+  {
+    image: near_temple,
+    title: 'Dambulla Cave Temple',
+    distance: '20 min away',
+    desc: 'A UNESCO World Heritage cave temple adorned with centuries-old Buddhist murals and statues.',
   },
 ]
+
+
+const lkrRate = useLkrRate()
+
+function lkrPrice(price: string) {
+  const usd = Number(price.match(/\d+/)?.[0] ?? 0)
+  return `Rs ${usdToLkr(usd, lkrRate.value)}`
+}
 
 const currentSlide = ref(0)
 
@@ -214,19 +225,10 @@ onUnmounted(() => clearInterval(sliderTimer))
       >
         <!-- IMAGE slide — slow Ken-Burns zoom when active -->
         <div
-          v-if="slide.type === 'image'"
           class="absolute inset-0 bg-cover bg-center transition-transform duration-[9000ms] ease-in-out"
           :class="i === currentSlide ? 'scale-100' : 'scale-[1.06]'"
           :style="{ backgroundImage: `url('${slide.src}')` }"
         ></div>
-
-        <!-- VIDEO slide — muted + autoplay required by browsers, playsinline for iOS -->
-        <video
-          v-else
-          :src="slide.src"
-          class="absolute inset-0 w-full h-full object-cover"
-          autoplay muted loop playsinline
-        ></video>
 
         <!-- Gradient overlay: subtle at top, dark at bottom for text readability -->
         <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/45 to-jungle/95"></div>
@@ -247,7 +249,7 @@ onUnmounted(() => clearInterval(sliderTimer))
         <h1 class="font-display text-[clamp(3rem,7vw,6.5rem)] font-light leading-[1.05] text-white
                    opacity-0 animate-[fadeUp_1s_0.5s_forwards]"
             style="text-shadow: 0 2px 24px rgba(0,0,0,0.7)">
-          Where the Jungle<br>Meets <em class="italic text-gold-light">Luxury</em>
+          Where Sigiriya<br>Meets <em class="italic text-gold-light">Luxury</em>
         </h1>
 
         <!-- Sub-heading -->
@@ -337,12 +339,12 @@ onUnmounted(() => clearInterval(sliderTimer))
       <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
 
         <!-- Left: Story text -->
-        <div>
+        <div v-reveal.left>
           <span class="text-[0.63rem] tracking-[0.42em] uppercase text-gold font-normal block mb-5">
             The Villa
           </span>
           <h2 class="font-display text-[clamp(2.2rem,3.5vw,3.2rem)] font-light leading-[1.15] text-cream">
-            A Hidden Sanctuary<br>in the <em class="italic text-gold-light">Ancient Forest</em>
+            A Hidden Sanctuary<br>in <em class="italic text-gold-light">Sigiriya</em>
           </h2>
           <p class="text-[0.9rem] leading-[1.9] text-stone/65 font-extralight mt-6">
             Nestled among centuries-old jungle near the iconic Sigiriya rock fortress, J Villla offers
@@ -356,9 +358,9 @@ onUnmounted(() => clearInterval(sliderTimer))
         </div>
 
         <!-- Right: Image with a floating "2 Luxury Villas" badge -->
-        <div class="relative mt-8 md:mt-0">
+        <div v-reveal.right class="relative mt-8 md:mt-0">
           <img
-            :src="the_villa"
+            :src="hero3"
             alt="J Villla aerial view"
             class="w-full h-90 md:h-125 object-cover block"
           />
@@ -381,35 +383,36 @@ onUnmounted(() => clearInterval(sliderTimer))
     <section id="rooms" class="bg-jungle py-24 md:py-28 px-6 md:px-12">
 
       <!-- Section heading -->
-      <div class="text-center mb-16">
+      <div v-reveal class="text-center mb-16">
         <span class="text-[0.63rem] tracking-[0.42em] uppercase text-gold font-normal block mb-5">
           Accommodation
         </span>
         <h2 class="font-display text-[clamp(2.2rem,3.5vw,3.2rem)] font-light leading-[1.15] text-cream">
-          Two Sanctuaries,<br><em class="italic text-gold-light">One Philosophy</em>
+          One Sanctuary,<br><em class="italic text-gold-light">Endless Serenity</em>
         </h2>
       </div>
 
-      <!-- Grid of villa cards -->
-      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-[3px]">
+      <!-- Villa card -->
+      <div class="max-w-6xl mx-auto">
 
-        <!-- "group" on the card lets child elements react to the card's hover state -->
         <RouterLink
-          v-for="room in rooms"
+          v-for="(room, i) in rooms"
           :key="room.name"
           :to="`/villa/${room.id}`"
+          v-reveal.scale="i * 150"
           class="relative overflow-hidden cursor-pointer group block"
         >
           <!-- Room image — zooms & darkens when you hover the card -->
           <img
             :src="room.image"
             :alt="room.name"
-            class="w-full h-[420px] md:h-[520px] object-cover block brightness-[0.68]
-                   transition-all duration-[800ms] group-hover:scale-[1.06] group-hover:brightness-50"
+            class="w-full h-[70vh] md:h-[85vh] object-cover block brightness-90
+                   transition-all duration-800 group-hover:scale-[1.06] group-hover:brightness-[0.35]"
           />
 
-          <!-- Dark gradient at the bottom so white text is readable -->
-          <div class="absolute inset-0 bg-gradient-to-t from-jungle/90 to-transparent"></div>
+          <!-- Gradient: light at rest, deepens on hover via group -->
+          <div class="absolute inset-0 bg-gradient-to-t from-jungle/70 via-transparent to-transparent
+                      transition-all duration-[800ms] group-hover:from-jungle/95 group-hover:via-jungle/30" style="transition-duration:800ms"></div>
 
           <!-- Villa name — fades out on hover -->
           <div class="absolute bottom-0 left-0 right-0 p-8 md:p-10
@@ -443,6 +446,7 @@ onUnmounted(() => clearInterval(sliderTimer))
               </li>
             </ul>
             <p class="font-display text-2xl text-gold-light font-light">{{ room.price }}</p>
+            <p class="text-[0.75rem] text-stone/60 font-extralight mt-1">≈ {{ lkrPrice(room.price) }} / night</p>
           </div>
 
         </RouterLink>
@@ -462,22 +466,23 @@ onUnmounted(() => clearInterval(sliderTimer))
         :key="exp.number"
         class="relative h-[60vh] md:h-[88vh] overflow-hidden group"
       >
-        <!-- Background image — scales slightly on hover -->
+        <!-- Background image — bright, scales slightly on hover -->
         <div
-          class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-[1.03]"
+          class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-[1.03] brightness-110"
           :style="{ backgroundImage: `url('${exp.image}')` }"
         ></div>
 
-        <!-- Directional gradient: fades from one side to give the text a dark backing -->
+        <!-- Text-side dark band only — photo side stays fully clear -->
         <div
           class="absolute inset-0"
           :class="exp.align === 'left'
-            ? 'bg-gradient-to-r from-jungle/90 via-jungle/55 to-transparent'
-            : 'bg-gradient-to-l from-jungle/90 via-jungle/55 to-transparent'"
+            ? 'bg-gradient-to-r from-black/70 via-black/35 to-transparent'
+            : 'bg-gradient-to-l from-black/70 via-black/35 to-transparent'"
         ></div>
 
         <!-- Text content — aligned left or right depending on data -->
         <div
+          v-reveal.fade
           class="absolute inset-0 flex flex-col justify-center px-8 md:px-20"
           :class="exp.align === 'right' ? 'items-end text-right' : 'items-start'"
         >
@@ -512,7 +517,7 @@ onUnmounted(() => clearInterval(sliderTimer))
     <section id="location" class="bg-forest-deep grid grid-cols-1 md:grid-cols-2">
 
       <!-- Left: Getting here text + distance list -->
-      <div class="px-8 md:px-16 py-16 md:py-24 flex flex-col justify-center">
+      <div v-reveal.left class="px-8 md:px-16 py-16 md:py-24 flex flex-col justify-center">
         <span class="text-[0.63rem] tracking-[0.42em] uppercase text-gold font-normal block mb-5">
           Getting Here
         </span>
@@ -522,6 +527,11 @@ onUnmounted(() => clearInterval(sliderTimer))
         <p class="text-[0.9rem] leading-[1.9] text-stone/65 font-extralight mt-6 max-w-[380px]">
           J Villla sits minutes from one of the world's most extraordinary ancient sites — the perfect
           base for exploring Sri Lanka's Cultural Triangle.
+        </p>
+
+        <!-- Address -->
+        <p class="text-[0.8rem] text-stone/70 font-extralight mt-6 tracking-wide">
+          No 154/A/1, Ilukwala, Sigiriya, Sri Lanka, 21120
         </p>
 
         <!-- Distance list -->
@@ -543,8 +553,51 @@ onUnmounted(() => clearInterval(sliderTimer))
         </div>
       </div>
 
-      <!-- Right: Landscape photo (set via background-image, min-height on mobile) -->
-       <img src:elephant alt="" class="min-h-[300px] md:min-h-0 bg-cover bg-center">
+      <!-- Right: Live map showing the villa's exact location -->
+      <div v-reveal.right class="min-h-75 md:min-h-0 overflow-hidden">
+        <LocationMap class="w-full h-full" />
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════════
+         NEARBY EXPERIENCES — auto-scrolling carousel
+    ════════════════════════════════════════════════════════════ -->
+    <section class="bg-jungle py-20 md:py-24 overflow-hidden">
+      <div v-reveal class="text-center mb-14 px-6">
+        <span class="text-[0.63rem] tracking-[0.42em] uppercase text-gold font-normal block mb-5">
+          Beyond the Villa
+        </span>
+        <h2 class="font-display text-[clamp(2.2rem,3.5vw,3.2rem)] font-light leading-[1.15] text-cream">
+          Nearby <em class="italic text-gold-light">Experiences</em>
+        </h2>
+      </div>
+
+      <div class="relative">
+        <div class="flex w-max animate-[marquee_30s_linear_infinite] hover:[animation-play-state:paused]">
+          <!-- Two identical groups back-to-back — the track shifts by exactly one
+               group's width so the loop point is invisible. -->
+          <div v-for="g in 2" :key="g" class="flex shrink-0">
+            <div
+              v-for="exp in nearbyExperiences"
+              :key="exp.title"
+              class="relative w-70 md:w-85 h-95 md:h-110 shrink-0 overflow-hidden group"
+            >
+              <img :src="exp.image" :alt="exp.title"
+                   class="absolute inset-0 w-full h-full object-cover brightness-75
+                          transition-transform duration-700 group-hover:scale-[1.06]" />
+              <div class="absolute inset-0 bg-linear-to-t from-jungle/95 via-jungle/20 to-transparent"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-6">
+                <span class="text-[0.6rem] tracking-[0.28em] uppercase text-gold-light font-light block mb-2">
+                  {{ exp.distance }}
+                </span>
+                <h3 class="font-display text-xl text-cream font-light mb-2">{{ exp.title }}</h3>
+                <p class="text-[0.78rem] text-stone/70 font-extralight leading-[1.7]">{{ exp.desc }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
 
@@ -554,7 +607,7 @@ onUnmounted(() => clearInterval(sliderTimer))
     <section class="bg-jungle py-20 md:py-28">
 
       <!-- Page eyebrow -->
-      <div class="text-center mb-10 px-6">
+      <div v-reveal class="text-center mb-10 px-6">
         <span class="text-[0.63rem] tracking-[0.42em] uppercase text-gold font-normal block mb-5">
           The Gallery
         </span>
@@ -570,7 +623,7 @@ onUnmounted(() => clearInterval(sliderTimer))
           <circle cx="12" cy="12" r="4"/>
           <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
         </svg>
-        <span class="text-[0.68rem] tracking-[0.22em] uppercase text-stone/50 font-extralight">jvillla</span>
+        <span class="text-[0.68rem] tracking-[0.22em] uppercase text-stone/50 font-extralight">jvillahotels</span>
       </div>
 
       <!-- 4-column square grid — Instagram-style tight gap -->
@@ -578,6 +631,7 @@ onUnmounted(() => clearInterval(sliderTimer))
         <div
           v-for="(img, i) in galleryImages"
           :key="img.label"
+          v-reveal.scale="i * 80"
           class="relative overflow-hidden group cursor-pointer aspect-square"
           @click="openLightbox(i)"
         >
@@ -587,29 +641,13 @@ onUnmounted(() => clearInterval(sliderTimer))
             class="absolute inset-0 w-full h-full object-cover
                    transition-all duration-500 group-hover:scale-[1.06] group-hover:brightness-50"
           />
-          <!-- Instagram-style hover overlay: heart + views -->
-          <div class="absolute inset-0 flex items-center justify-center gap-6
-                      opacity-0 group-hover:opacity-100 transition-opacity duration-250">
-            <div class="flex items-center gap-1.5 text-white font-semibold text-sm">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="white">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-              </svg>
-              <span>148</span>
-            </div>
-            <div class="flex items-center gap-1.5 text-white font-semibold text-sm">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="white">
-                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-              </svg>
-              <span>1.2k</span>
-            </div>
-          </div>
         </div>
       </div>
 
       <!-- View more on Instagram -->
       <div class="text-center mt-8 px-6">
         <a
-          href="https://instagram.com/jvillla"
+          href="https://instagram.com/jvillahotels"
           target="_blank"
           class="inline-flex items-center gap-2.5 text-stone/50 text-[0.68rem]
                  tracking-[0.2em] uppercase font-extralight hover:text-gold-light transition-colors"
@@ -688,9 +726,6 @@ onUnmounted(() => clearInterval(sliderTimer))
               class="max-h-[78vh] max-w-full object-contain shadow-2xl"
             />
           </Transition>
-          <p class="text-[0.65rem] tracking-[0.3em] uppercase text-white/40 font-extralight">
-            {{ galleryImages[lightboxIndex].label }}
-          </p>
         </div>
 
         <!-- Next arrow -->
@@ -712,8 +747,7 @@ onUnmounted(() => clearInterval(sliderTimer))
     ════════════════════════════════════════════════════════════ -->
     <section id="book" class="bg-forest text-center border-t border-gold/15 py-24 md:py-28 px-6">
 
-      <!-- Decorative gold divider with a diamond in the middle -->
-      <div class="flex items-center gap-4 max-w-[260px] mx-auto mb-12">
+      <div v-reveal class="flex items-center gap-4 max-w-65 mx-auto mb-12">
         <div class="flex-1 h-px bg-gradient-to-r from-transparent to-gold"></div>
         <div class="w-1.5 h-1.5 bg-gold rotate-45"></div>
         <div class="flex-1 h-px bg-gradient-to-l from-transparent to-gold"></div>
@@ -725,17 +759,30 @@ onUnmounted(() => clearInterval(sliderTimer))
       <h2 class="font-display text-[clamp(2.2rem,3.5vw,3.2rem)] font-light leading-[1.15] text-cream mb-4">
         Reserve Your Villa
       </h2>
-      <p class="text-[0.88rem] text-stone/60 font-extralight leading-[1.85] max-w-[440px] mx-auto mb-10">
+      <p class="text-[0.88rem] text-stone/60 font-extralight leading-[1.85] max-w-110 mx-auto mb-10">
         We keep it personal. Message us directly — no bots, no forms. Just us, ready to craft your
         perfect stay at J Villla.
       </p>
 
-      <!-- WhatsApp + Email buttons -->
       <div class="flex gap-3 justify-center flex-wrap mb-6">
+
+        <!-- Booking.com -->
+        <a
+          href="https://www.booking.com/Share-pLuXQS0"
+          target="_blank"
+          class="inline-flex items-center gap-2.5 bg-[#003580] text-white
+                 px-8 md:px-10 py-4 text-[0.75rem] tracking-[0.18em] uppercase font-medium
+                 hover:bg-[#00224f] hover:-translate-y-0.5 transition-all"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.39 13.84c.28-.7.44-1.46.44-2.26 0-3.43-2.79-6.22-6.22-6.22H6.03V19.5h3.75v-4.22h4.83c.57 0 1.11-.09 1.62-.25l2.39 4.47h4.18l-2.41-5.66zM13.96 12H9.78V8.64h4.18c.93 0 1.68.75 1.68 1.68S14.89 12 13.96 12z"/>
+          </svg>
+          Book on Booking.com
+        </a>
 
         <!-- WhatsApp (gold filled button) -->
         <a
-          href="https://wa.me/94XXXXXXXXX?text=Hello%20J%20Villla%2C%20I'd%20like%20to%20enquire%20about%20a%20stay."
+          href="https://wa.me/94701560350?text=Hello%20J%20Villla%2C%20I'd%20like%20to%20enquire%20about%20a%20stay."
           target="_blank"
           class="inline-flex items-center gap-2.5 bg-gold text-forest-deep
                  px-8 md:px-10 py-4 text-[0.75rem] tracking-[0.18em] uppercase font-medium
@@ -750,7 +797,7 @@ onUnmounted(() => clearInterval(sliderTimer))
 
         <!-- Email (ghost / outline button) -->
         <a
-          href="mailto:hello@jvillla.com?subject=Reservation%20Enquiry"
+          href="mailto:jvillahotels@gmail.com?subject=Reservation%20Enquiry"
           class="inline-block border border-gold/35 text-cream
                  px-8 md:px-10 py-4 text-[0.75rem] tracking-[0.18em] uppercase font-extralight
                  hover:border-gold-light hover:text-gold-light transition-all"
@@ -769,44 +816,7 @@ onUnmounted(() => clearInterval(sliderTimer))
     <!-- ════════════════════════════════════════════════════════════
          FOOTER — brand info and link columns
     ════════════════════════════════════════════════════════════ -->
-    <footer class="bg-forest-deep border-t border-gold/10 px-6 md:px-12 pt-14 pb-8">
-
-      <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-start gap-8">
-
-        <!-- Brand column -->
-        <div>
-          <p class="font-display text-[1.6rem] font-light text-gold-light tracking-[0.1em]">J Villla</p>
-          <p class="text-[0.63rem] tracking-[0.25em] uppercase text-stone/50 font-extralight mt-2">
-            Eco Luxury · Sigiriya · Sri Lanka
-          </p>
-        </div>
-
-        <!-- Link columns — Stay / Explore / Contact -->
-        <div class="flex flex-wrap gap-10 md:gap-16">
-          <div v-for="col in footerCols" :key="col.title">
-            <h4 class="text-[0.6rem] tracking-[0.35em] uppercase text-gold font-normal mb-4">
-              {{ col.title }}
-            </h4>
-            <ul class="flex flex-col gap-2">
-              <li v-for="link in col.links" :key="link.label">
-                <a
-                  :href="link.href"
-                  class="text-[0.77rem] text-stone/60 font-extralight hover:text-gold-light hover:opacity-100 transition-all"
-                >
-                  {{ link.label }}
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bottom copyright bar -->
-      <p class="text-center text-[0.63rem] text-stone/30 tracking-[0.1em] font-extralight
-                mt-10 pt-8 border-t border-white/[0.04]">
-        © 2025 J Villla · All rights reserved · Designed with care for the land
-      </p>
-    </footer>
+    <AppFooter />
 
   </div><!-- end root wrapper -->
 </template>
@@ -821,5 +831,15 @@ onUnmounted(() => clearInterval(sliderTimer))
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(18px); }
   to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   NEARBY EXPERIENCES MARQUEE
+   Scrolls the duplicated card list exactly one set-width to the left,
+   looping seamlessly since the list is rendered twice.
+───────────────────────────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0);     }
+  to   { transform: translateX(-50%); }
 }
 </style>

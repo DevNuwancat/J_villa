@@ -2,14 +2,19 @@
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import AppNav from '../components/AppNav.vue'
+import AppFooter from '../components/AppFooter.vue'
+import { useLkrRate, usdToLkr } from '../composables/useLkrRate'
 
-import heroImg  from '../assets/rooms/hero.jpg'
-import _g1 from '../assets/rooms/1.jpg'
-import _g2 from '../assets/rooms/2.jpg'
-import _g3 from '../assets/rooms/3.jpg'
-import _g4 from '../assets/rooms/4.jpg'
-import _g5 from '../assets/rooms/5.jpg'
-import _g6 from '../assets/rooms/6.jpg'
+import heroImg  from '../assets/villa_view.png'
+import _g1 from '../assets/inside_room/5.png'
+import _g2 from '../assets/inside_room/7.png'
+import _g3 from '../assets/inside_room/8.png'
+import _g4 from '../assets/inside_room/11.png'
+import _g5 from '../assets/inside_room/12.png'
+import _g6 from '../assets/inside_room/13.png'
+import _g7 from '../assets/inside_room/14.png'
+import _g8 from '../assets/inside_room/15.png'
+import _g9 from '../assets/inside_room/16.png'
 
 const route  = useRoute()
 const router = useRouter()
@@ -31,73 +36,80 @@ const villas: Record<string, {
 }> = {
   'stone-suite': {
     id:        'stone-suite',
-    tag:       'Villa One',
-    name:      'The Stone Suite',
-    tagline:   'Ancient stone, endless forest, total privacy',
+    tag:       'Private Pool Chalet',
+    name:      'J Villa Sigiriya',
+    tagline:   'Private Pool Chalets Nestled in the Heart of Sigiriya',
     desc: [
-      'The Stone Suite is carved from natural stone and aged teak, sitting at the forest edge with an uninterrupted view across the Sigiriya jungle canopy. Every surface has been sourced from the land — no two rooms are the same.',
-      'Step outside onto your private jungle terrace and hear nothing but the birds. Your own direct access to the infinity pool is ten steps away. The open-air stone bathroom is designed to dissolve the boundary between inside and out.',
+      'J Villa Sigiriya offers elegant private pool chalets set around a serene garden and terrace. Each chalet features its own balcony with garden, pool, or mountain views, along with free WiFi, air-conditioning, and a private entrance — built for total privacy and comfort.',
+      'Located just 9 km from Sigiriya Airport, the property is minutes from Pidurangala Rock (3.5 km) and the UNESCO-listed Sigiriya Rock Fortress (4.3 km). Free private parking is available on-site, and every morning begins with a Continental and Asian breakfast.',
     ],
     stats: [
       { icon: 'users',  label: 'Guests',    value: '2'       },
-      { icon: 'bed',    label: 'King Bed',  value: '1'       },
-      { icon: 'bath',   label: 'Ensuite',   value: '1'       },
-      { icon: 'pool',   label: 'Pool',      value: 'Infinity'},
-      { icon: 'size',   label: 'Villa',     value: '120 m²'  },
-      { icon: 'view',   label: 'View',      value: 'Jungle'  },
+      { icon: 'bed',    label: 'Bed',       value: 'King'    },
+      { icon: 'bath',   label: 'Bathroom',  value: 'Private' },
+      { icon: 'pool',   label: 'Pool',      value: 'Private' },
+      { icon: 'size',   label: 'Rating',    value: '10.0'    },
+      { icon: 'view',   label: 'View',      value: 'Mountain'},
     ],
     highlights: [
-      'King bed with forest canopy view',
-      'Open-air stone bathroom',
-      'Private jungle terrace',
-      'Handcrafted teak furniture',
-      'Rain shower & soaking tub',
-      'Direct infinity pool access',
-      'Daily housekeeping',
-      'Complimentary breakfast',
+      'Private outdoor swimming pool',
+      'Free WiFi throughout',
+      'Air-conditioning & private entrance',
+      'Balcony with garden, pool or mountain view',
+      'Tea/coffee maker & work desk',
+      'Continental & Asian breakfast',
+      'Free private parking on-site',
+      'Flat-screen TV & free toiletries',
     ],
-    price:      'From $280 / night',
+    price:      'From $100 / night',
     otherId:    'wood-haven',
     otherName:  'The Wood Haven',
     otherTag:   'Villa Two',
-    otherPrice: 'From $320 / night',
+    otherPrice: 'From $100 / night',
   },
   'wood-haven': {
     id:        'wood-haven',
-    tag:       'Villa Two',
-    name:      'The Wood Haven',
-    tagline:   'Full teak warmth, panoramic views, a world apart',
+    tag:       'Private Pool Chalet',
+    name:      'J Villa Sigiriya',
+    tagline:   'Private Pool Chalets Nestled in the Heart of Sigiriya',
     desc: [
-      'The Wood Haven is entirely panelled in hand-selected reclaimed teak, creating an atmosphere of deep warmth and calm. Floor-to-ceiling glass frames the jungle panorama from every room, blurring where the villa ends and the forest begins.',
-      'Your private plunge pool sits on a cantilevered deck over the jungle. A dedicated butler is on call. The outdoor shower sanctuary — set among living ferns — is unlike anything you have experienced before.',
+      'J Villa Sigiriya offers elegant private pool chalets set around a serene garden and terrace. Each chalet features its own balcony with garden, pool, or mountain views, along with free WiFi, air-conditioning, and a private entrance — built for total privacy and comfort.',
+      'Located just 9 km from Sigiriya Airport, the property is minutes from Pidurangala Rock (3.5 km) and the UNESCO-listed Sigiriya Rock Fortress (4.3 km). Free private parking is available on-site, and every morning begins with a Continental and Asian breakfast.',
     ],
     stats: [
       { icon: 'users',  label: 'Guests',    value: '2'       },
-      { icon: 'bed',    label: 'King Bed',  value: '1'       },
-      { icon: 'bath',   label: 'Ensuite',   value: '1'       },
+      { icon: 'bed',    label: 'Bed',       value: 'King'    },
+      { icon: 'bath',   label: 'Bathroom',  value: 'Private' },
       { icon: 'pool',   label: 'Pool',      value: 'Private' },
-      { icon: 'size',   label: 'Villa',     value: '145 m²'  },
-      { icon: 'view',   label: 'View',      value: 'Panorama'},
+      { icon: 'size',   label: 'Rating',    value: '10.0'    },
+      { icon: 'view',   label: 'View',      value: 'Mountain'},
     ],
     highlights: [
-      'King bed with panoramic view',
-      'Full teak-panelled interior',
-      'Private plunge pool',
-      'Handwoven textile accents',
-      'Outdoor shower sanctuary',
-      'Dedicated butler service',
-      'Daily housekeeping',
-      'Complimentary breakfast',
+      'Private outdoor swimming pool',
+      'Free WiFi throughout',
+      'Air-conditioning & private entrance',
+      'Balcony with garden, pool or mountain view',
+      'Tea/coffee maker & work desk',
+      'Continental & Asian breakfast',
+      'Free private parking on-site',
+      'Flat-screen TV & free toiletries',
     ],
-    price:      'From $320 / night',
+    price:      'From $100 / night',
     otherId:    'stone-suite',
     otherName:  'The Stone Suite',
     otherTag:   'Villa One',
-    otherPrice: 'From $280 / night',
+    otherPrice: 'From $100 / night',
   },
 }
 
 const villa = computed(() => villas[route.params.id as string] ?? villas['stone-suite'])
+
+const lkrRate = useLkrRate()
+
+function lkrPrice(price: string) {
+  const usd = Number(price.match(/\d+/)?.[0] ?? 0)
+  return `Rs ${usdToLkr(usd, lkrRate.value)}`
+}
 
 /* ── Gallery images (shared set) ────────────────────────────── */
 const galleryImages = [
@@ -107,6 +119,9 @@ const galleryImages = [
   { src: _g4, label: 'Dining'         },
   { src: _g5, label: 'Terrace'        },
   { src: _g6, label: 'Infinity Pool'  },
+  { src: _g7, label: 'Villa Exterior' },
+  { src: _g8, label: 'Kitchen'        },
+  { src: _g9, label: 'Sunset Views'   },
 ]
 
 /* ── Lightbox ────────────────────────────────────────────────── */
@@ -134,12 +149,16 @@ const iconPaths: Record<string, string> = {
 <template>
   <div class="bg-jungle text-cream font-body overflow-x-hidden">
 
-    <AppNav />
+    <AppNav :sub-links="[
+      { href: '#overview', label: 'Overview'  },
+      { href: '#gallery',  label: 'Gallery'   },
+      { href: '#book',     label: 'Reserve'   },
+    ]" />
 
     <!-- ════════════════════════════════════════════════════════
          HERO — full-screen hero.jpg with villa name overlay
     ════════════════════════════════════════════════════════ -->
-    <section class="relative h-screen overflow-hidden">
+    <section id="overview" class="relative h-screen overflow-hidden">
       <img
         :src="heroImg"
         alt="Villa hero"
@@ -186,8 +205,9 @@ const iconPaths: Record<string, string> = {
     <div class="bg-forest-deep border-b border-gold/10 py-5 px-4 md:px-12
                 flex flex-wrap items-center justify-center gap-6 md:gap-14">
       <div
-        v-for="stat in villa.stats"
+        v-for="(stat, i) in villa.stats"
         :key="stat.label"
+        v-reveal.scale="i * 80"
         class="flex flex-col items-center gap-1.5"
       >
         <svg class="w-4 h-4 text-gold opacity-70" viewBox="0 0 24 24" fill="none"
@@ -207,7 +227,7 @@ const iconPaths: Record<string, string> = {
       <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-14 md:gap-24">
 
         <!-- Left: description -->
-        <div>
+        <div v-reveal.left>
           <span class="text-[0.63rem] tracking-[0.42em] uppercase text-gold font-normal block mb-5">
             About this Villa
           </span>
@@ -226,16 +246,16 @@ const iconPaths: Record<string, string> = {
                       uppercase font-medium hover:bg-gold-light transition-all inline-block">
               Reserve Now
             </a>
-            <a href="https://wa.me/94XXXXXXXXX" target="_blank"
+            <a href="https://wa.me/94701560350" target="_blank"
                class="border border-gold/35 text-cream px-8 py-3.5 text-[0.73rem] tracking-[0.2em]
                       uppercase font-extralight hover:border-gold-light hover:text-gold-light transition-all inline-block">
               Enquire via WhatsApp
-            </a>
+            </a>els
           </div>
         </div>
 
         <!-- Right: room highlights -->
-        <div>
+        <div v-reveal.right>
           <span class="text-[0.63rem] tracking-[0.42em] uppercase text-gold font-normal block mb-5">
             Room Highlights
           </span>
@@ -254,7 +274,23 @@ const iconPaths: Record<string, string> = {
           <div class="mt-8 border border-gold/20 px-6 py-5 inline-block">
             <span class="text-[0.6rem] tracking-[0.3em] uppercase text-gold font-normal block mb-1">Starting from</span>
             <span class="font-display text-3xl text-gold-light font-light">{{ villa.price.replace('From ', '') }}</span>
-            <span class="text-[0.65rem] text-stone/40 font-extralight block mt-1">per night · includes breakfast</span>
+            <span class="text-[0.7rem] text-stone/60 font-extralight block mt-1">≈ {{ lkrPrice(villa.price) }} / night</span>
+            <span class="text-[0.65rem] text-stone/40 font-extralight block mt-1">per night · bed and breakfast</span>
+          </div>
+
+          <!-- Good to know / house rules -->
+          <div class="mt-8">
+            <span class="text-[0.63rem] tracking-[0.42em] uppercase text-gold font-normal block mb-4">
+              Good to Know
+            </span>
+            <ul class="flex flex-col gap-2.5 text-[0.8rem] text-stone/60 font-extralight">
+              <li>Check-in: 14:00 – 00:00 · Check-out: 07:00 – 11:00</li>
+              <li>Cash only on arrival</li>
+              <li>Children are not allowed · no cots or extra beds</li>
+              <li>Pets are not allowed</li>
+              <li>No age restriction on check-in</li>
+              <li>English & Hindi spoken</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -266,7 +302,7 @@ const iconPaths: Record<string, string> = {
     ════════════════════════════════════════════════════════ -->
     <section id="gallery" class="bg-jungle py-20 md:py-24">
 
-      <div class="text-center mb-10 px-6">
+      <div v-reveal class="text-center mb-10 px-6">
         <span class="text-[0.63rem] tracking-[0.42em] uppercase text-gold font-normal block mb-5">
           The Gallery
         </span>
@@ -280,6 +316,7 @@ const iconPaths: Record<string, string> = {
         <div
           v-for="(img, i) in galleryImages"
           :key="img.label"
+          v-reveal.scale="i * 80"
           class="relative overflow-hidden group cursor-pointer aspect-[3/4]"
           @click="openLightbox(i)"
         >
@@ -289,16 +326,13 @@ const iconPaths: Record<string, string> = {
             class="absolute inset-0 w-full h-full object-cover
                    transition-all duration-600 group-hover:scale-[1.07] group-hover:brightness-50"
           />
-          <!-- Hover: label + expand -->
-          <div class="absolute inset-0 flex flex-col items-center justify-end pb-7 gap-2
+          <!-- Hover: expand icon -->
+          <div class="absolute inset-0 flex items-center justify-center
                       opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <svg class="w-6 h-6 text-white/70" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="1.3">
               <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
             </svg>
-            <span class="text-[0.62rem] tracking-[0.28em] uppercase text-white/60 font-extralight">
-              {{ img.label }}
-            </span>
           </div>
         </div>
       </div>
@@ -309,20 +343,33 @@ const iconPaths: Record<string, string> = {
          BOOK SECTION
     ════════════════════════════════════════════════════════ -->
     <section id="book" class="bg-forest text-center border-t border-gold/15 py-20 md:py-24 px-6">
-      <div class="flex items-center gap-4 max-w-[260px] mx-auto mb-10">
+      <div v-reveal class="flex items-center gap-4 max-w-65 mx-auto mb-10">
         <div class="flex-1 h-px bg-gradient-to-r from-transparent to-gold"></div>
         <div class="w-1.5 h-1.5 bg-gold rotate-45"></div>
         <div class="flex-1 h-px bg-gradient-to-l from-transparent to-gold"></div>
       </div>
-      <span class="text-[0.63rem] tracking-[0.42em] uppercase text-gold font-normal block mb-5">Reservations</span>
-      <h2 class="font-display text-[clamp(2rem,3.5vw,3rem)] font-light text-cream mb-4">
+      <span v-reveal class="text-[0.63rem] tracking-[0.42em] uppercase text-gold font-normal block mb-5">Reservations</span>
+      <h2 v-reveal="100" class="font-display text-[clamp(2rem,3.5vw,3rem)] font-light text-cream mb-4">
         Reserve {{ villa.name }}
       </h2>
-      <p class="text-[0.88rem] text-stone/60 font-extralight leading-[1.85] max-w-[440px] mx-auto mb-10">
+      <p v-reveal="200" class="text-[0.88rem] text-stone/60 font-extralight leading-[1.85] max-w-110 mx-auto mb-10">
         Message us directly — no bots, no forms. Just us, ready to craft your perfect stay.
       </p>
       <div class="flex gap-3 justify-center flex-wrap mb-6">
-        <a href="https://wa.me/94XXXXXXXXX?text=Hello%20J%20Villla%2C%20I'd%20like%20to%20enquire%20about%20a%20stay."
+        <!-- Booking.com -->
+        <a href="https://www.booking.com/Share-pLuXQS0"
+           target="_blank"
+           class="inline-flex items-center gap-2.5 bg-[#003580] text-white
+                  px-8 md:px-10 py-4 text-[0.75rem] tracking-[0.18em] uppercase font-medium
+                  hover:bg-[#00224f] hover:-translate-y-0.5 transition-all">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.39 13.84c.28-.7.44-1.46.44-2.26 0-3.43-2.79-6.22-6.22-6.22H6.03V19.5h3.75v-4.22h4.83c.57 0 1.11-.09 1.62-.25l2.39 4.47h4.18l-2.41-5.66zM13.96 12H9.78V8.64h4.18c.93 0 1.68.75 1.68 1.68S14.89 12 13.96 12z"/>
+          </svg>
+          Book on Booking.com
+        </a>
+
+        <!-- WhatsApp -->
+        <a href="https://wa.me/94701560350?text=Hello%20J%20Villla%2C%20I'd%20like%20to%20enquire%20about%20a%20stay."
            target="_blank"
            class="inline-flex items-center gap-2.5 bg-gold text-forest-deep
                   px-8 md:px-10 py-4 text-[0.75rem] tracking-[0.18em] uppercase font-medium
@@ -332,7 +379,9 @@ const iconPaths: Record<string, string> = {
           </svg>
           WhatsApp Us
         </a>
-        <a href="mailto:hello@jvillla.com?subject=Reservation%20Enquiry"
+
+        <!-- Email -->
+        <a href="mailto:jvillahotels@gmail.com?subject=Reservation%20Enquiry"
            class="inline-block border border-gold/35 text-cream
                   px-8 md:px-10 py-4 text-[0.75rem] tracking-[0.18em] uppercase font-extralight
                   hover:border-gold-light hover:text-gold-light transition-all">
@@ -350,44 +399,25 @@ const iconPaths: Record<string, string> = {
     ════════════════════════════════════════════════════════ -->
     <section class="bg-forest-deep border-t border-gold/10 py-20 md:py-24 px-6 md:px-12">
       <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-10">
-          <span class="text-[0.63rem] tracking-[0.42em] uppercase text-gold font-normal block mb-3">
-            Also at J Villla
-          </span>
-          <h2 class="font-display text-[clamp(1.8rem,3vw,2.6rem)] font-light text-cream">
-            Explore the Other <em class="italic text-gold-light">Villa</em>
-          </h2>
-        </div>
-
-        <!-- Single card — full-width clickable -->
+        <!-- Single image with a centered "Back to Home" CTA -->
         <div
           class="relative overflow-hidden group cursor-pointer max-w-3xl mx-auto"
-          @click="router.push(`/villa/${villa.otherId}`)"
+          @click="router.push('/')"
         >
           <img
-            :src="_g6"
-            :alt="villa.otherName"
-            class="w-full h-[340px] md:h-[420px] object-cover brightness-[0.65]
-                   transition-all duration-700 group-hover:scale-[1.04] group-hover:brightness-50"
+            :src="_g9"
+            alt="J Villla"
+            class="w-full h-[340px] md:h-[420px] object-cover brightness-[0.55]
+                   transition-all duration-700 group-hover:scale-[1.04] group-hover:brightness-[0.4]"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-jungle/90 to-transparent"></div>
 
-          <!-- Text — fades on hover, replaced by CTA -->
-          <div class="absolute bottom-0 left-0 right-0 p-8 md:p-10
-                      transition-all duration-400 group-hover:opacity-0 group-hover:translate-y-3">
-            <span class="text-[0.62rem] tracking-[0.32em] uppercase text-gold-light font-light block mb-2">
-              {{ villa.otherTag }}
-            </span>
-            <span class="font-display text-3xl font-light text-cream block">{{ villa.otherName }}</span>
-            <span class="text-[0.75rem] text-stone/60 font-extralight block mt-1">{{ villa.otherPrice }}</span>
-          </div>
-
-          <!-- Hover CTA -->
-          <div class="absolute inset-0 flex items-center justify-center
-                      opacity-0 group-hover:opacity-100 transition-opacity duration-400">
+          <!-- Back to Home CTA -->
+          <div class="absolute inset-0 flex items-center justify-center">
             <span class="border border-gold/50 text-gold-light px-8 py-3
-                         text-[0.68rem] tracking-[0.22em] uppercase font-light">
-              View Villa →
+                         text-[0.68rem] tracking-[0.22em] uppercase font-light
+                         transition-all duration-400 group-hover:border-gold group-hover:text-gold">
+              ← Back to Home
             </span>
           </div>
         </div>
@@ -449,9 +479,6 @@ const iconPaths: Record<string, string> = {
               class="max-h-[80vh] max-w-full object-contain shadow-2xl"
             />
           </Transition>
-          <p class="text-[0.65rem] tracking-[0.3em] uppercase text-white/40 font-extralight">
-            {{ galleryImages[lightboxIndex].label }}
-          </p>
         </div>
 
         <button @click="lightboxNext"
@@ -463,6 +490,8 @@ const iconPaths: Record<string, string> = {
         </button>
       </div>
     </Transition>
+
+    <AppFooter />
 
   </div>
 </template>
