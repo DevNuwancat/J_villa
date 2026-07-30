@@ -6,33 +6,33 @@ import LocationMap from '../components/LocationMap.vue'
 import { useLkrRate, usdToLkr } from '../composables/useLkrRate'
 
 // Hero media imports — images and video
-import hero1 from '../assets/hero/hero1.png'
-import hero2 from '../assets/hero/hero2.png'
-import hero3 from '../assets/hero/hero3.png'
-import elephant from '../assets/elephant.jpg'
+import hero1 from '../assets/hero/hero1.webp'
+import hero2 from '../assets/hero/hero2.webp'
+import hero3 from '../assets/hero/hero3.webp'
+import elephant from '../assets/elephant.webp'
 
-import inifinity_pool from '../assets/hero/Pool.png'
-import food from '../assets/hero/food2.png'
-import sigiriya from '../assets/sigiriya.jpg'
-import room1 from '../assets/J_vill_room.png'
+import inifinity_pool from '../assets/hero/Pool.webp'
+import food from '../assets/hero/food2.webp'
+import sigiriya from '../assets/sigiriya.webp'
+import room1 from '../assets/J_vill_room.webp'
 
-import near_spa from '../assets/near/spa.png'
-import near_temple from '../assets/near/temple.png'
-import near_rock from '../assets/near/pindurangala.png'
+import near_spa from '../assets/near/spa.webp'
+import near_temple from '../assets/near/temple.webp'
+import near_rock from '../assets/near/pindurangala.webp'
 
 
-import _ig1 from '../assets/insta_gallery/1.png'
-import _ig2 from '../assets/insta_gallery/2.png'
-import _ig3 from '../assets/insta_gallery/3.png'
-import _ig4 from '../assets/insta_gallery/4.png'
-import _ig7 from '../assets/insta_gallery/7.png'
-import _ig8 from '../assets/insta_gallery/8.png'
-import _ig13 from '../assets/insta_gallery/13.png'
-import _ig18 from '../assets/insta_gallery/18.png'
-import _ig20 from '../assets/insta_gallery/20.png'
-import _igPool from '../assets/insta_gallery/Pool.png'
-import _igFood from '../assets/insta_gallery/food.png'
-import _igHero2 from '../assets/insta_gallery/hero2.png'
+import _ig1 from '../assets/insta_gallery/1.webp'
+import _ig2 from '../assets/insta_gallery/2.webp'
+import _ig3 from '../assets/insta_gallery/3.webp'
+import _ig4 from '../assets/insta_gallery/4.webp'
+import _ig7 from '../assets/insta_gallery/7.webp'
+import _ig8 from '../assets/insta_gallery/8.webp'
+import _ig13 from '../assets/insta_gallery/13.webp'
+import _ig18 from '../assets/insta_gallery/18.webp'
+import _ig20 from '../assets/insta_gallery/20.webp'
+import _igPool from '../assets/insta_gallery/Pool.webp'
+import _igFood from '../assets/insta_gallery/food.webp'
+import _igHero2 from '../assets/insta_gallery/hero2.webp'
 
 const galleryImages = [
   { src: _ig1,     label: 'The Villa'          },
@@ -361,7 +361,7 @@ onUnmounted(() => clearInterval(sliderTimer))
         <div v-reveal.right class="relative mt-8 md:mt-0">
           <img
             :src="hero3"
-            alt="J Villla aerial view"
+            alt="J Villa Sigiriya private pool chalet exterior in the Sigiriya jungle"
             class="w-full h-90 md:h-125 object-cover block"
           />
           <!-- Badge overlaps the bottom-left corner of the image -->

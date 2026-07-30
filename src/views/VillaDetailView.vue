@@ -5,16 +5,16 @@ import AppNav from '../components/AppNav.vue'
 import AppFooter from '../components/AppFooter.vue'
 import { useLkrRate, usdToLkr } from '../composables/useLkrRate'
 
-import heroImg  from '../assets/villa_view.png'
-import _g1 from '../assets/inside_room/5.png'
-import _g2 from '../assets/inside_room/7.png'
-import _g3 from '../assets/inside_room/8.png'
-import _g4 from '../assets/inside_room/11.png'
-import _g5 from '../assets/inside_room/12.png'
-import _g6 from '../assets/inside_room/13.png'
-import _g7 from '../assets/inside_room/14.png'
-import _g8 from '../assets/inside_room/15.png'
-import _g9 from '../assets/inside_room/16.png'
+import heroImg  from '../assets/villa_view.webp'
+import _g1 from '../assets/inside_room/5.webp'
+import _g2 from '../assets/inside_room/7.webp'
+import _g3 from '../assets/inside_room/8.webp'
+import _g4 from '../assets/inside_room/11.webp'
+import _g5 from '../assets/inside_room/12.webp'
+import _g6 from '../assets/inside_room/13.webp'
+import _g7 from '../assets/inside_room/14.webp'
+import _g8 from '../assets/inside_room/15.webp'
+import _g9 from '../assets/inside_room/16.webp'
 
 const route  = useRoute()
 const router = useRouter()
@@ -161,7 +161,7 @@ const iconPaths: Record<string, string> = {
     <section id="overview" class="relative h-screen overflow-hidden">
       <img
         :src="heroImg"
-        alt="Villa hero"
+        alt="J Villa Sigiriya private pool chalet near Sigiriya Rock Fortress"
         class="absolute inset-0 w-full h-full object-cover scale-[1.03]"
       />
       <div class="absolute inset-0 bg-gradient-to-b from-black/25 via-black/40 to-jungle/95"></div>
@@ -406,7 +406,7 @@ const iconPaths: Record<string, string> = {
         >
           <img
             :src="_g9"
-            alt="J Villla"
+            alt="J Villa Sigiriya"
             class="w-full h-[340px] md:h-[420px] object-cover brightness-[0.55]
                    transition-all duration-700 group-hover:scale-[1.04] group-hover:brightness-[0.4]"
           />

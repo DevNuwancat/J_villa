@@ -4,14 +4,160 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>J Villa Sigiriya</title>
+
+    <!-- ════════════════════════════════════════════════════════════
+         PRIMARY SEO — title, description, canonical
+         Targets: Sigiriya villa, Sri Lanka luxury villa, Sigiriya hotel,
+         private pool villa Sigiriya, eco luxury Sri Lanka tourism
+    ════════════════════════════════════════════════════════════ -->
+    <title>J Villa Sigiriya | Private Pool Chalet Near Sigiriya Rock Fortress, Sri Lanka</title>
+    <meta name="description" content="J Villa Sigiriya is a private pool chalet minutes from Sigiriya Rock Fortress and Pidurangala Rock. Free WiFi, air-conditioning, garden & mountain views, Continental & Asian breakfast. Book direct or via Booking.com." />
+    <meta name="keywords" content="Sigiriya villa, Sigiriya hotel, private pool villa Sigiriya, Sri Lanka luxury villa, eco villa Sri Lanka, Sigiriya Rock Fortress accommodation, Pidurangala Rock hotel, Dambulla cave temple hotel, Sri Lanka tourism, Cultural Triangle accommodation, boutique hotel Sigiriya, where to stay in Sigiriya" />
+    <meta name="author" content="J Villa Sigiriya" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://jvillahotels.com/" />
+
+    <!-- Geo tags — helps local/map-based search -->
+    <meta name="geo.region" content="LK-71" />
+    <meta name="geo.placename" content="Sigiriya, Sri Lanka" />
+    <meta name="geo.position" content="7.9843464;80.7640516" />
+    <meta name="ICBM" content="7.9843464, 80.7640516" />
+
+    <!-- ════════════════════════════════════════════════════════════
+         OPEN GRAPH — Facebook, WhatsApp, LinkedIn link previews
+    ════════════════════════════════════════════════════════════ -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="J Villa Sigiriya" />
+    <meta property="og:title" content="J Villa Sigiriya | Private Pool Chalet Near Sigiriya Rock Fortress" />
+    <meta property="og:description" content="A private pool chalet minutes from Sigiriya Rock Fortress and Pidurangala Rock, Sri Lanka. Free WiFi, garden & mountain views, breakfast included." />
+    <meta property="og:image" content="https://jvillahotels.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="675" />
+    <meta property="og:url" content="https://jvillahotels.com/" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- ════════════════════════════════════════════════════════════
+         TWITTER / X CARD
+    ════════════════════════════════════════════════════════════ -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="J Villa Sigiriya | Private Pool Chalet Near Sigiriya Rock Fortress" />
+    <meta name="twitter:description" content="A private pool chalet minutes from Sigiriya Rock Fortress and Pidurangala Rock, Sri Lanka." />
+    <meta name="twitter:image" content="https://jvillahotels.com/og-image.jpg" />
+
     <!-- Google Fonts: Cormorant Garamond (headings) + Jost (body text) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+    <!-- ════════════════════════════════════════════════════════════
+         STRUCTURED DATA (JSON-LD) — LodgingBusiness schema
+         Read by Google Rich Results, Google Assistant, and AI answer
+         engines (ChatGPT/Gemini/Perplexity) that parse schema.org data.
+    ════════════════════════════════════════════════════════════ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      "name": "J Villa Sigiriya",
+      "alternateName": "J Villa Sigiriya - Private Pool Chalets",
+      "description": "Private pool chalets set in a serene garden near Sigiriya Rock Fortress, Pidurangala Rock and Dambulla Cave Temple in Sri Lanka's Cultural Triangle. Free WiFi, air-conditioning, private entrance, and Continental & Asian breakfast.",
+      "url": "https://jvillahotels.com/",
+      "telephone": "+94701560350",
+      "email": "jvillahotels@gmail.com",
+      "image": "https://jvillahotels.com/og-image.jpg",
+      "priceRange": "$100",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "No 154/A/1, Ilukwala",
+        "addressLocality": "Sigiriya",
+        "addressRegion": "Central Province",
+        "postalCode": "21120",
+        "addressCountry": "LK"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 7.9843464,
+        "longitude": 80.7640516
+      },
+      "amenityFeature": [
+        { "@type": "LocationFeatureSpecification", "name": "Private Swimming Pool", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Air Conditioning", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Free Private Parking", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Breakfast Included", "value": true }
+      ],
+      "sameAs": [
+        "https://instagram.com/jvillahotels",
+        "https://www.booking.com/Share-pLuXQS0"
+      ],
+      "hasMap": "https://www.openstreetmap.org/?mlat=7.9843464&mlon=80.7640516#map=16/7.9843464/80.7640516"
+    }
+    </script>
   </head>
   <body>
     <div id="app"></div>
+
+    <!-- ════════════════════════════════════════════════════════════
+         NOSCRIPT FALLBACK
+         This is a client-rendered (Vue) single-page app: the div above
+         is empty until JavaScript runs. Search engine bots (Googlebot)
+         execute JS and see the full rendered page, but many AI/LLM
+         crawlers (GPTBot, ClaudeBot, PerplexityBot, CCBot, etc.) fetch
+         raw HTML only and never run JavaScript. This block gives those
+         crawlers real, human-readable page content to index — it mirrors
+         what a JS-enabled visitor sees and is hidden by the browser the
+         moment Vue mounts, so it never affects the visual design.
+    ════════════════════════════════════════════════════════════ -->
+    <noscript>
+      <main>
+        <h1>J Villa Sigiriya — Private Pool Chalet Near Sigiriya Rock Fortress, Sri Lanka</h1>
+        <p>
+          J Villa Sigiriya offers elegant private pool chalets set around a serene garden and terrace
+          in Sigiriya, Sri Lanka. Each chalet features its own balcony with garden, pool, or mountain
+          views, free WiFi, air-conditioning, and a private entrance — built for total privacy and
+          comfort in the heart of Sri Lanka's Cultural Triangle.
+        </p>
+        <p>
+          Located just 9 km from Sigiriya Airport, the property is minutes from Pidurangala Rock
+          (3.5 km) and the UNESCO World Heritage Sigiriya Rock Fortress (4.3 km), with the Dambulla
+          Cave Temple around 20 minutes away and Polonnaruwa Ancient City around 45 minutes away.
+          Free private parking is available on-site, and every morning begins with a Continental and
+          Asian breakfast.
+        </p>
+        <h2>Amenities</h2>
+        <ul>
+          <li>Private outdoor swimming pool</li>
+          <li>Free WiFi throughout</li>
+          <li>Air-conditioning and private entrance</li>
+          <li>Balcony with garden, pool, or mountain view</li>
+          <li>Tea/coffee maker and work desk</li>
+          <li>Continental and Asian breakfast</li>
+          <li>Free private parking on-site</li>
+          <li>Flat-screen TV and free toiletries</li>
+        </ul>
+        <h2>Nearby Experiences</h2>
+        <ul>
+          <li>Ancient Ayurvedic Spa — 5 minutes away</li>
+          <li>Jungle Safari — 30 minutes away</li>
+          <li>Pidurangala Rock — minutes away</li>
+          <li>Dambulla Cave Temple — 20 minutes away</li>
+        </ul>
+        <h2>Rates</h2>
+        <p>Private pool chalet from $100 per night, bed and breakfast included.</p>
+        <h2>Location &amp; Contact</h2>
+        <address>
+          No 154/A/1, Ilukwala, Sigiriya, Sri Lanka, 21120<br>
+          Phone: <a href="tel:+94701560350">+94 70 156 0350</a><br>
+          Email: <a href="mailto:jvillahotels@gmail.com">jvillahotels@gmail.com</a><br>
+          Instagram: <a href="https://instagram.com/jvillahotels">@jvillahotels</a><br>
+          Book on Booking.com: <a href="https://www.booking.com/Share-pLuXQS0">J Villa Sigiriya</a>
+        </address>
+        <p>
+          Please enable JavaScript to view the full interactive site, gallery, and booking options.
+        </p>
+      </main>
+    </noscript>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
