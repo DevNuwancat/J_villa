@@ -27,7 +27,7 @@ onMounted(() => {
 
   map = L.map(mapEl.value, {
     center: [LAT, LNG],
-    zoom: 15,
+    zoom: 12,
     scrollWheelZoom: false,
   })
 

@@ -414,14 +414,27 @@ onUnmounted(() => clearInterval(sliderTimer))
           <div class="absolute inset-0 bg-gradient-to-t from-jungle/70 via-transparent to-transparent
                       transition-all duration-[800ms] group-hover:from-jungle/95 group-hover:via-jungle/30" style="transition-duration:800ms"></div>
 
-          <!-- Villa name — fades out on hover -->
+          <!-- Villa name — fades out on hover (desktop) -->
           <div class="absolute bottom-0 left-0 right-0 p-8 md:p-10
-                      transition-all duration-500 group-hover:opacity-0 group-hover:translate-y-4">
+                      transition-all duration-500 md:group-hover:opacity-0 md:group-hover:translate-y-4">
             <span class="text-[0.63rem] tracking-[0.32em] uppercase text-gold-light font-light block mb-2">
               {{ room.tag }}
             </span>
             <span class="font-display text-3xl font-light text-cream block">
               {{ room.name }}
+            </span>
+            <!-- Always-visible tap affordance — hover reveals the full
+                 amenities panel on desktop, but touch devices have no
+                 hover state, so this pill is the only cue that the card
+                 is tappable. Hidden on desktop where the hover panel
+                 already does that job. -->
+            <span class="md:hidden inline-flex items-center gap-2 mt-4 text-[0.68rem]
+                         tracking-[0.2em] uppercase text-gold-light font-light
+                         border border-gold-light/40 px-4 py-2">
+              View Details
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M13 6l6 6-6 6"/>
+              </svg>
             </span>
           </div>
 
