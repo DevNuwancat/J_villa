@@ -250,7 +250,7 @@ const iconPaths: Record<string, string> = {
                class="border border-gold/35 text-cream px-8 py-3.5 text-[0.73rem] tracking-[0.2em]
                       uppercase font-extralight hover:border-gold-light hover:text-gold-light transition-all inline-block">
               Enquire via WhatsApp
-            </a>els
+            </a>
           </div>
         </div>
 
